@@ -12,7 +12,7 @@ services=(cloudian-cmc cloudian-agent cloudian-redismon cloudian-s3 cloudian-iam
 
 # Creating a function to stop all the services
 service_stop () {
-    printf "${green}${bold}\nStopping Services:${normal}\n\n"
+    printf "${green}${bold}Stopping Services:${normal}\n\n"
     for serviceop in "${services[@]}"
         do
             printf "${bold}Stopping service ${yellow}$serviceop.${normal}\n"
@@ -28,7 +28,7 @@ service_stop () {
 
 # Creating a function to start all the services
 service_start () {
-    printf "${green}${bold}\nStarting Services:${normal}\n\n"
+    printf "${green}${bold}Starting Services:${normal}\n\n"
     # Using this for statement to reverse the array selection for correct startup of services
     for (( serviceart=${#services[@]}-1 ; serviceart>=0 ; serviceart-- )) ;
         do
@@ -45,7 +45,7 @@ service_start () {
 
 # Creating a function to restart all the services
 service_restart () {
-    printf "${green}${bold}\nStopping Services:${normal}\n\n"
+    printf "${green}${bold}Stopping Services:${normal}\n\n"
     for serviceop in "${services[@]}"
         do
             printf "${bold}Restarting service ${yellow}$serviceop.${normal}\n"
@@ -60,7 +60,7 @@ service_restart () {
 }
 
 service_status () {
-    printf "${green}${bold}\nService statuses:${normal}\n\n"
+    printf "${green}${bold}Service statuses:${normal}\n\n"
     for servicestat in "${services[@]}"
         do
             printf "${yellow}$serviceop:${normal}\n"
@@ -73,8 +73,8 @@ service_status () {
 while true
 do
 
-    clear
     # Selection screen
+    clear
     printf "${bold}====================================================================\n"
     printf "Would you like to stop, start or restart all services on this node?\n"
     printf "====================================================================\n"
@@ -87,22 +87,30 @@ do
     # If/Else to execute choice
     
     if [[ $choice = 1 ]]
-        then service_stop
+        then 
+        clear
+        service_stop
         printf "${bold}Successfully stopped all services! Press any key to continue...${normal}\n"
         read null
 
     elif [[ $choice = 2 ]] 
-        then service_start
+        then 
+        clear
+        service_start
         printf "${bold}Successfully started all services! Press any key to continue...${normal}\n"
         read null
 
     elif [[ $choice = 3 ]] 
-        then service_restart
+        then 
+        clear
+        service_restart
         printf "${bold}Successfully restarted services! Press any key to continue...${normal}\n"
         read null
     
     elif [[ $choice = 4 ]] 
-        then service_status
+        then 
+        clear
+        service_status
         printf "${bold}Press any key to continue...${normal}\n"
         read null
     
