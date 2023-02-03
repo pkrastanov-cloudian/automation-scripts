@@ -21,7 +21,7 @@ service_stop () {
         done
     
     # Stopping DNSMasq seperately
-    printf "${bold}Stopping service ${yellow}cloudian-dnsmasq:${normal}\n"
+    printf "${bold}Stopping service ${yellow}cloudian-dnsmasq.${normal}\n"
     systemctl stop cloudian-dnsmasq
     printf "\n"
 }
@@ -38,7 +38,7 @@ service_start () {
         done
     
     # Stopping DNSMasq seperately
-    printf "${bold}Starting service ${yellow}cloudian-dnsmasq:${normal}\n"
+    printf "${bold}Starting service ${yellow}cloudian-dnsmasq.${normal}\n"
     systemctl start cloudian-dnsmasq
     printf "\n"
 }
