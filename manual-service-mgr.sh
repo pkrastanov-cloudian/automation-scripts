@@ -37,9 +37,25 @@ service_start () {
             printf "\n"
         done
     
-    # Stopping DNSMasq seperately
+    # Starting DNSMasq seperately
     printf "${bold}Starting service ${yellow}cloudian-dnsmasq.${normal}\n"
     systemctl start cloudian-dnsmasq
+    printf "\n"
+}
+
+# Creating a function to restart all the services
+service_restart () {
+    printf "${green}${bold}\nStopping Services:${normal}\n\n"
+    for serviceop in "${services[@]}"
+        do
+            printf "${bold}Restarting service ${yellow}$serviceop.${normal}\n"
+            systemctl restart $serviceop
+            printf "\n"
+        done
+    
+    # Restarting DNSMasq seperately
+    printf "${bold}Restarting service ${yellow}cloudian-dnsmasq.${normal}\n"
+    systemctl restart cloudian-dnsmasq
     printf "\n"
 }
 
@@ -48,7 +64,7 @@ service_status () {
     for servicestat in "${services[@]}"
         do
             printf "${yellow}$serviceop:${normal}\n"
-            systemctl status $serviceop | grep -i active
+            systemctl status $serviceop | grep -ip active
             printf "\n"
         done
 }
@@ -81,7 +97,7 @@ do
         read null
 
     elif [[ $choice = 3 ]] 
-        then service_stop && service_start
+        then service_restart
         printf "${bold}Successfully restarted services! Press any key to continue...${normal}\n"
         read null
     
