@@ -51,11 +51,6 @@ service_status () {
             systemctl status $serviceop
             printf "\n"
         done
-    
-    # Stopping DNSMasq seperately
-    printf "${bold}Stopping service ${yellow}cloudian-dnsmasq:${normal}\n"
-    systemctl stop cloudian-dnsmasq
-    printf "\n"
 }
 
 # Starting loop to make script interactive
