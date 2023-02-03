@@ -12,10 +12,10 @@ services=(cloudian-cmc cloudian-agent cloudian-redismon cloudian-s3 cloudian-iam
 
 # Creating a function to stop all the services
 service_stop () {
-    printf "${green}${bold}Stopping Services:${normal}\n\n"
+    printf "${green}${bold}\nStopping Services:${normal}\n\n"
     for serviceop in "${services[@]}"
         do
-            printf "${bold}Stopping service ${yellow}$serviceop:${normal}\n"
+            printf "${bold}Stopping service ${yellow}$serviceop.${normal}\n"
             systemctl stop $serviceop
             printf "\n"
         done
@@ -28,11 +28,11 @@ service_stop () {
 
 # Creating a function to start all the services
 service_start () {
-    printf "${green}${bold}Starting Services:${normal}\n\n"
+    printf "${green}${bold}\nStarting Services:${normal}\n\n"
     # Using this for statement to reverse the array selection for correct startup of services
     for (( serviceart=${#services[@]}-1 ; serviceart>=0 ; serviceart-- )) ;
         do
-            printf "${bold}Starting service ${yellow}${services[serviceart]}:${normal}\n"
+            printf "${bold}Starting service ${yellow}${services[serviceart]}.${normal}\n"
             systemctl start ${services[serviceart]}
             printf "\n"
         done
@@ -44,11 +44,11 @@ service_start () {
 }
 
 service_status () {
-    printf "${green}${bold}Service statuses:${normal}\n\n"
+    printf "${green}${bold}\nService statuses:${normal}\n\n"
     for servicestat in "${services[@]}"
         do
             printf "${yellow}$serviceop:${normal}\n"
-            systemctl status $serviceop | grep -i loaded -A 1
+            systemctl status $serviceop | grep -i active
             printf "\n"
         done
 }
@@ -72,22 +72,22 @@ do
     
     if [[ $choice = 1 ]]
         then service_stop
-        printf "Successfully stopped all services! Press any key to continue...\n"
+        printf "${bold}Successfully stopped all services! Press any key to continue...${normal}\n"
         read null
 
     elif [[ $choice = 2 ]] 
         then service_start
-        printf "Successfully started all services! Press any key to continue...\n"
+        printf "${bold}Successfully started all services! Press any key to continue...${normal}\n"
         read null
 
     elif [[ $choice = 3 ]] 
         then service_stop && service_start
-        printf "Successfully restarted services! Press any key to continue...\n"
+        printf "${bold}Successfully restarted services! Press any key to continue...${normal}\n"
         read null
     
     elif [[ $choice = 4 ]] 
         then service_status
-        printf "Press any key to continue...\n"
+        printf "${bold}Press any key to continue...${normal}\n"
         read null
     
     elif [[ $choice = 5 ]] 
