@@ -78,7 +78,7 @@ do
     printf "${bold}====================================================================\n"
     printf "Would you like to stop, start or restart all services on this node?\n"
     printf "====================================================================\n"
-    printf "1) Stop\n2) Start\n3) Restart\n4) Check service status\n5) Exit${normal}\n\n"
+    printf "1) Stop\n2) Start\n3) Restart\n4) Check service status (needs some work)\n5) Exit${normal}\n\n"
     
     # Actual selection
     printf "${yellow}Your choice: ${normal}"
