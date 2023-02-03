@@ -1,5 +1,13 @@
 #!/bin/bash
-# Adding formatting stuff
+# Version 1.0.0
+# Written by Petar Krastanov
+# Date Created: 03/02/2023
+#
+# To do:
+# 1. Fix the issue where the status option displays nothing if it is executed before any other option
+# 2. Optimize the code. I think I can get away with just one, at most two functions. Threw this together really quickly so I should revisit it for a future version
+
+# Adding color and formatting vars
 red='\033[0;31m'
 green='\033[0;32m'
 yellow='\033[0;33m'
@@ -78,7 +86,7 @@ do
     printf "${bold}====================================================================\n"
     printf "Would you like to stop, start or restart all services on this node?\n"
     printf "====================================================================\n"
-    printf "1) Stop\n2) Start\n3) Restart\n4) Check service status (needs some work)\n5) Exit${normal}\n\n"
+    printf "1) Stop\n2) Start\n3) Restart\n4) Check service status\n5) Exit${normal}\n\n"
     
     # Actual selection
     printf "${yellow}Your choice: ${normal}"
