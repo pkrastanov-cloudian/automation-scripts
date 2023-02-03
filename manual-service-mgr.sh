@@ -48,7 +48,7 @@ service_status () {
     for servicestat in "${services[@]}"
         do
             printf "${yellow}$serviceop:${normal}\n"
-            systemctl status $serviceop
+            systemctl status $serviceop | grep -i loaded -A 1
             printf "\n"
         done
 }
