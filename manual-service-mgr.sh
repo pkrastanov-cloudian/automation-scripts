@@ -81,8 +81,6 @@ do
         op="${ops[0]}"
         printf "${green}${bold}Stopping Services:${normal}\n\n"
         service_mgr
-        printf "${bold}Service ${yellow}cloudian-dnsmasq.${normal}\n"
-        systemctl $op cloudian-dnsmasq
         printf "${bold}\nSuccessfully stopped all services! Press any key to continue...${normal}\n"
         read null
         ;;
@@ -100,8 +98,6 @@ do
         op="${ops[1]}"
         printf "${green}${bold}Restarting Services:${normal}\n\n"
         service_mgr
-        printf "${bold}Service ${yellow}cloudian-dnsmasq.${normal}\n"
-        systemctl $op cloudian-dnsmasq
         printf "${bold}Successfully restarted services! Press any key to continue...${normal}\n"
         read null
         ;;
