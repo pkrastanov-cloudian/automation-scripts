@@ -1,15 +1,17 @@
 #!/bin/bash
-# Version 1.0.1
+# Version 1.0.2
 # Written by Petar Krastanov
 # Date Created: 03/02/2023
 # Date Modified: 06/02/2023
 #
 # Changes:
 # 1) Changed the if/else to switch/case for better efficency.  
-# 2) removed 2 redundant functions and instead combined 3 total into one.
+# 2) removed 2 redundant functions and instead combined 3 into one.
 #
 # To do:
-# See if I can somehow merge the service start function with the service_mgr function
+# 1) See if I can somehow merge the service start function with the service_mgr function
+# 2) After adding the check for the SQS service it looks like it generates a warning/error when starting the services. 
+# This doesn't break the functionality it's just a but annoying. Should address this when possible.
 #
 # Adding color and formatting variables
 red='\033[0;31m'
