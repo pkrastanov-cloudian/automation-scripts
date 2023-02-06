@@ -1,11 +1,14 @@
 #!/bin/bash
-# Version 1.0.0
+# Version 1.0.1
 # Written by Petar Krastanov
 # Date Created: 03/02/2023
 #
+# Changes:
+# 1) Changed the if/else to switch/case for better efficency. Also removed 2 useless functions and instead combined 3 into one. I would now like to see how I can do the service start as well but I'll leave that for a future version
+#
 # To do:
-# 1. Fix the issue where the status option displays nothing if it is executed before any other option
-# 2. Optimize the code. I think I can get away with just one, at most two functions. Threw this together really quickly so I should revisit it for a future version
+# See if I can somehow merge the service start function with the service_mgr function
+
 
 # Adding color and formatting vars
 red='\033[0;31m'
@@ -18,63 +21,40 @@ normal=$(tput sgr0)
 # Creating an Array of all services in the stop order
 services=(cloudian-cmc cloudian-agent cloudian-redismon cloudian-s3 cloudian-iam cloudian-sqs cloudian-hyperstore cloudian-redis-qos cloudian-redis-credentials cloudian-cassandra)
 
-# Creating a function to stop all the services
-service_stop () {
-    printf "${green}${bold}Stopping Services:${normal}\n\n"
+# Creating an Array for the systemctl operations
+ops=(stop restart status)
+
+# Creating a function to stop/restart/status all the services
+service_mgr () {
+        
     for serviceop in "${services[@]}"
         do
-            printf "${bold}Stopping service ${yellow}$serviceop.${normal}\n"
-            systemctl stop $serviceop
+            printf "${bold}Service ${yellow}$serviceop.${normal}\n"
+            systemctl $op $serviceop
             printf "\n"
         done
     
-    # Stopping DNSMasq seperately
-    printf "${bold}Stopping service ${yellow}cloudian-dnsmasq.${normal}\n"
-    systemctl stop cloudian-dnsmasq
+    # Managing DNSMasq seperately
+    printf "${bold}Service ${yellow}cloudian-dnsmasq.${normal}\n"
+    systemctl $op cloudian-dnsmasq
     printf "\n"
 }
 
-# Creating a function to start all the services
+# Creating a function to start all the services. It is a seperate function due to the nature of the reverse sort of the services array.
 service_start () {
-    printf "${green}${bold}Starting Services:${normal}\n\n"
+    
     # Using this for statement to reverse the array selection for correct startup of services
     for (( serviceart=${#services[@]}-1 ; serviceart>=0 ; serviceart-- )) ;
         do
-            printf "${bold}Starting service ${yellow}${services[serviceart]}.${normal}\n"
+            printf "${bold}Service ${yellow}${services[serviceart]}.${normal}\n"
             systemctl start ${services[serviceart]}
             printf "\n"
         done
     
     # Starting DNSMasq seperately
-    printf "${bold}Starting service ${yellow}cloudian-dnsmasq.${normal}\n"
+    printf "${bold}Service ${yellow}cloudian-dnsmasq.${normal}\n"
     systemctl start cloudian-dnsmasq
     printf "\n"
-}
-
-# Creating a function to restart all the services
-service_restart () {
-    printf "${green}${bold}Stopping Services:${normal}\n\n"
-    for serviceop in "${services[@]}"
-        do
-            printf "${bold}Restarting service ${yellow}$serviceop.${normal}\n"
-            systemctl restart $serviceop
-            printf "\n"
-        done
-    
-    # Restarting DNSMasq seperately
-    printf "${bold}Restarting service ${yellow}cloudian-dnsmasq.${normal}\n"
-    systemctl restart cloudian-dnsmasq
-    printf "\n"
-}
-
-service_status () {
-    printf "${green}${bold}Service statuses:${normal}\n\n"
-    for servicestat in "${services[@]}"
-        do
-            printf "${yellow}$serviceop:${normal}\n"
-            systemctl status $serviceop | grep -i active
-            printf "\n"
-        done
 }
 
 # Starting loop to make script interactive
@@ -88,47 +68,61 @@ do
     printf "====================================================================\n"
     printf "1) Stop\n2) Start\n3) Restart\n4) Check service status\n5) Exit${normal}\n\n"
     
-    # Actual selection
+    # Choice celection
     printf "${yellow}Your choice: ${normal}"
         read choice
 
-    # If/Else to execute choice
+    # Case to run the script
+    case $choice in
     
-    if [[ $choice = 1 ]]
-        then 
+    1) 
         clear
-        service_stop
-        printf "${bold}Successfully stopped all services! Press any key to continue...${normal}\n"
+        op="${ops[0]}"
+        printf "${green}${bold}Stopping Services:${normal}\n\n"
+        service_mgr
+        printf "${bold}Service ${yellow}cloudian-dnsmasq.${normal}\n"
+        systemctl $op cloudian-dnsmasq
+        printf "${bold}\nSuccessfully stopped all services! Press any key to continue...${normal}\n"
         read null
+        ;;
 
-    elif [[ $choice = 2 ]] 
-        then 
+    2) 
         clear
+        printf "${green}${bold}Starting Services:${normal}\n\n"
         service_start
         printf "${bold}Successfully started all services! Press any key to continue...${normal}\n"
         read null
+        ;;
 
-    elif [[ $choice = 3 ]] 
-        then 
+    3) 
         clear
-        service_restart
+        op="${ops[1]}"
+        printf "${green}${bold}Restarting Services:${normal}\n\n"
+        service_mgr
+        printf "${bold}Service ${yellow}cloudian-dnsmasq.${normal}\n"
+        systemctl $op cloudian-dnsmasq
         printf "${bold}Successfully restarted services! Press any key to continue...${normal}\n"
         read null
+        ;;
     
-    elif [[ $choice = 4 ]] 
-        then 
+    4) 
         clear
-        service_status
+        op="${ops[2]}"
+        printf "${green}${bold}Service Statuses:${normal}\n\n"
+        service_mgr
         printf "${bold}Press any key to continue...${normal}\n"
         read null
+        ;;
     
-    elif [[ $choice = 5 ]] 
-        then break
+    5)
+        break
+        ;;
     
-    else
+    *)
         printf "${red}Invalid input!${normal} Press any key to return...\n"  
         read null
+        ;;
     
-    fi
+    esac
 
 done
