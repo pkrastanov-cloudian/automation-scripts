@@ -9,9 +9,8 @@
 #
 # To do:
 # See if I can somehow merge the service start function with the service_mgr function
-
-
-# Adding color and formatting vars
+#
+# Adding color and formatting variables
 red='\033[0;31m'
 green='\033[0;32m'
 yellow='\033[0;33m'
