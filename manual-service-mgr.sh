@@ -2,6 +2,7 @@
 # Version 1.0.1
 # Written by Petar Krastanov
 # Date Created: 03/02/2023
+# Date Modified: 06/02/2023
 #
 # Changes:
 # 1) Changed the if/else to switch/case for better efficency.  
