@@ -4,7 +4,8 @@
 # Date Created: 03/02/2023
 #
 # Changes:
-# 1) Changed the if/else to switch/case for better efficency. Also removed 2 useless functions and instead combined 3 into one. I would now like to see how I can do the service start as well but I'll leave that for a future version
+# 1) Changed the if/else to switch/case for better efficency.  
+# 2) removed 2 redundant functions and instead combined 3 total into one.
 #
 # To do:
 # See if I can somehow merge the service start function with the service_mgr function
