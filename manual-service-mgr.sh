@@ -73,7 +73,7 @@ do
     printf "${yellow}Your choice: ${normal}"
         read choice
 
-    # Case to run the script
+    # Case to run the tool
     case $choice in
     
     1) 
