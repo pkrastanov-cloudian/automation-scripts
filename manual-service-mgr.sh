@@ -88,7 +88,7 @@ do
         op="${ops[0]}"
         printf "${green}${bold}Stopping Services:${normal}\n\n"
         service_mgr
-        printf "${bold}\nSuccessfully stopped all services! Press any key to continue...${normal}\n"
+        printf "${bold}\nSuccessfully stopped all services! Press any key to continue...${normal}"
         read null
         ;;
 
@@ -96,7 +96,7 @@ do
         clear
         printf "${green}${bold}Starting Services:${normal}\n\n"
         service_start
-        printf "${bold}Successfully started all services! Press any key to continue...${normal}\n"
+        printf "${bold}Successfully started all services! Press any key to continue...${normal}"
         read null
         ;;
 
@@ -105,7 +105,7 @@ do
         op="${ops[1]}"
         printf "${green}${bold}Restarting Services:${normal}\n\n"
         service_mgr
-        printf "${bold}Successfully restarted services! Press any key to continue...${normal}\n"
+        printf "${bold}Successfully restarted services! Press any key to continue...${normal}"
         read null
         ;;
     
@@ -114,7 +114,7 @@ do
         op="${ops[2]}"
         printf "${green}${bold}Service Statuses:${normal}\n\n"
         service_mgr
-        printf "${bold}Press any key to continue...${normal}\n"
+        printf "${bold}Press any key to continue...${normal}"
         read null
         ;;
     
@@ -123,7 +123,7 @@ do
         ;;
     
     *)
-        printf "${red}Invalid input!${normal} Press any key to return...\n"  
+        printf "${red}Invalid input!${normal} Press any key to return..."  
         read null
         ;;
     
