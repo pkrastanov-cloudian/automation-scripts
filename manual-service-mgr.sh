@@ -28,9 +28,9 @@ services=(cloudian-cmc cloudian-agent cloudian-redismon cloudian-s3 cloudian-iam
 ops=(stop restart status)
 
 # Performing check to see if SQS is currently active on the node
-#if [[ -z $(systemctl status cloudian-sqs | grep -i running) ]];
-#then unset services[5]
-#fi
+if [[ -z $(systemctl status cloudian-sqs | grep -i running) ]];
+then unset services[5]
+fi
 
 # Creating a function to stop/restart/status all the services
 service_mgr () {
@@ -52,7 +52,7 @@ service_mgr () {
 service_start () {
     
     # Using this for statement to reverse the array selection for correct startup of services
-    for (( serviceart=${#services[@]}-1 ; serviceart>=0 ; serviceart-- )) ;
+    for (( serviceart=${#services[@]} ; serviceart>=0 ; serviceart-- )) ;
         do
             printf "${bold}Service ${yellow}${services[serviceart]}.${normal}\n"
             systemctl start ${services[serviceart]}
