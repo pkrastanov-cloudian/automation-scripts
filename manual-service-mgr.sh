@@ -11,7 +11,7 @@
 # To do:
 # 1) See if I can somehow merge the service start function with the service_mgr function
 # 2) After adding the check for the SQS service it looks like it generates a warning/error when starting the services. 
-# This doesn't break the functionality it's just a but annoying. Should address this when possible.
+# This doesn't break the functionality it's just a bit annoying. Should address this when possible.
 #
 # Adding color and formatting variables
 red='\033[0;31m'
